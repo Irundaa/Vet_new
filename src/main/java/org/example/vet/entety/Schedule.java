@@ -16,8 +16,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 
 public class Schedule {
-    private Long doctor_id;
-    private Time start_time;
-    private Time end_time;
+    private Long doctorId;
+    private Time startTime;
+    private Time endTime;
     private LocalDate date;
 }

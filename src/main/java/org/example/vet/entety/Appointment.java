@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 
 public class Appointment {
-    private Long appointment_id;
-    private Long doctor_id;
-    private Long patient_id;
-    private LocalDateTime start_date_time;
-    private LocalDateTime end_date_time;
+    private Long appointmentId;
+    private Long doctorId;
+    private Long patientId;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
 }

@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 
 public class User {
-    private long user_id;
+    private long userId;
     private String username;
     private String password;
     private Enum role;
