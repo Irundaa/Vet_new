@@ -12,15 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "api/v1/doctor")
+@RequestMapping(path = "api/v1/patient")
 public class PatientController {
-
-    private final VetService vetService;
-
-    @Autowired
-    public PatientController(VetService vetService) {
-        this.vetService = vetService;
-    }
 
     @PostMapping
     public void  registerNewPatient(@RequestBody PatientDTO patientDTO) {

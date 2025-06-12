@@ -6,12 +6,12 @@ import org.example.vet.entety.Type;
 import java.util.Optional;
 
 public class PatientDTO {
-    private final Long patientId;
-    private final Long userId;
-    private final String name;
-    private final Type type;
-    private final Optional<Integer> age;
-    private final Optional<Integer> weight;
+    private Long patientId;
+    private Long userId;
+    private String name;
+    private Type type;
+    private Optional<Integer> age;
+    private Optional<Integer> weight;
 
     private PatientDTO(PatientDTOBuilder builder) {
         this.patientId = builder.patientId;
@@ -30,18 +30,31 @@ public class PatientDTO {
     public Optional<Integer> getWeight() { return weight; }
 
     public static class PatientDTOBuilder {
-        private final Long patientId;
-        private final Long userId;
-        private final String name;
-        private final Type type;
+        private Long patientId;
+        private Long userId;
+        private String name;
+        private Type type;
         private Integer age;
         private Integer weight;
 
-        public PatientDTOBuilder(Long patientId, Long userId, String name, Type type) {
+        public PatientDTOBuilder patientId(Long patientId, Long userId, String name, Type type) {
             this.patientId = patientId;
+            return this;
+        }
+
+        public PatientDTOBuilder userId(Long patientId, Long userId, String name, Type type) {
             this.userId = userId;
+            return this;
+        }
+
+        public PatientDTOBuilder name(Long patientId, Long userId, String name, Type type) {
             this.name = name;
+            return this;
+        }
+
+        public PatientDTOBuilder type(Long patientId, Long userId, String name, Type type) {
             this.type = type;
+            return this;
         }
 
         public PatientDTOBuilder age(Integer age) {

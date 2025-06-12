@@ -4,6 +4,7 @@ import org.example.vet.DTO.AppointmentDTO;
 import org.example.vet.DTO.DoctorDTO;
 import org.example.vet.DTO.PatientDTO;
 import org.example.vet.DTO.UserDTO;
+import org.example.vet.service.DoctorService;
 import org.example.vet.service.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,11 @@ import java.util.Optional;
 @RequestMapping(path = "api/v1/doctor")
 public class DoctorController {
 
-    private final VetService vetService;
+    private final DoctorService doctorService;
 
     @Autowired
-    public  DoctorController(VetService vetService) {
-        this.vetService = vetService;
+    public  DoctorController(DoctorService doctorService) {
+        this.doctorService = doctorService;
     }
 
     @PostMapping
@@ -50,7 +51,7 @@ public class DoctorController {
 
     @GetMapping
     public List<DoctorDTO> getAllDoctors() {
-        return null;
+        return doctorService.getAll();
     }
 
 }

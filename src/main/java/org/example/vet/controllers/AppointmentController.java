@@ -12,15 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "api/v1/doctor")
+@RequestMapping(path = "api/v1/appointment")
 public class AppointmentController {
-
-    private final VetService vetService;
-
-    @Autowired
-    public AppointmentController(VetService vetService) {
-        this.vetService = vetService;
-    }
 
     @PostMapping
     public void  addNewAppointment(@RequestBody AppointmentDTO appointmentDTO) {
@@ -37,11 +30,6 @@ public class AppointmentController {
     public void  deleteAppointment(@PathVariable("appointmentId") Long appointmentId) {
 
     }
-
-//    @GetMapping
-//    public List<UserDTO> getAllUsers() {
-//        return null;
-//    }
 
     @GetMapping
     public List<AppointmentDTO> getAllAppointments() {
