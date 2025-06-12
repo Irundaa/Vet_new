@@ -4,6 +4,7 @@ import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -11,10 +12,10 @@ import lombok.*;
 
 public class Doctor {
 
-    private Long doctor_id;
-    private Long user_id;
-    private String first_name;
-    private String last_name;
+    private Long doctorId;
+    private Long userId;
+    private String firstName;
+    private String lastName;
     private int age;
     private int experience;
     private int room;

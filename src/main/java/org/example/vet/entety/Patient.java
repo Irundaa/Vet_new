@@ -13,8 +13,8 @@ import lombok.*;
 @AllArgsConstructor
 
 public class Patient {
-    private Long patient_id;
-    private Long user_id;
+    private Long patientId;
+    private Long userId;
     private String name;
     private Enum Type;
     private int age;
