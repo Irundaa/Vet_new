@@ -21,18 +21,19 @@ public class DoctorController {
 
     @PostMapping
     public void  registerNewDoctor(@RequestBody DoctorDTO doctorDTO) {
-
+        doctorService.insert(doctorDTO);
     }
 
     @PutMapping(path = "{doctorId}")
     public void  updateDoctor(@RequestBody DoctorDTO doctorDTO,
                                @PathVariable("doctorId") Long doctorId) {
+        doctorService.update(doctorDTO, doctorId);
 
     }
 
     @DeleteMapping(path = "{doctorId}")
     public void  deleteDoctor(@PathVariable("doctorId") Long doctorId) {
-
+        doctorService.deleteById(doctorId);
     }
 
     @GetMapping(path = "/{doctorId}", produces = MediaType.APPLICATION_JSON_VALUE)

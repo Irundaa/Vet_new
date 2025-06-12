@@ -1,11 +1,13 @@
 package org.example.vet.repository;
 
+import org.example.vet.DTO.DoctorDTO;
 import org.example.vet.entety.Doctor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class DoctorRepository {
@@ -22,4 +24,35 @@ public class DoctorRepository {
     public Doctor findDoctorById (Long doctorId) {
         return jdbcTemplate.queryForObject("SELECT first_name AS firstName, last_name AS lastName, age, experience, room FROM doctor  WHERE doctor_id=" + doctorId + ";", new BeanPropertyRowMapper<>(Doctor.class));
     }
+
+    public void deleteDoctorById (Long doctorId) {
+        jdbcTemplate.update("DELETE FROM doctor WHERE doctor_id=" + doctorId + ";");
+    }
+
+    public void updateDoctor (DoctorDTO doctorDTO, Long doctorId) {
+        String firstName = doctorDTO.getFirstName();
+        String lastName = doctorDTO.getLastName();
+        int age = doctorDTO.getAge();
+        int experience = doctorDTO.getExperience();
+        Optional<Integer> room = doctorDTO.getRoom();
+        jdbcTemplate.update("UPDATE doctor\n" +
+                "SET first_name=?, last_name=?, age=?, experience=?, room=?\n" +
+                "WHERE doctor_id=?;\n", firstName, lastName, age, experience, room.orElse(null), doctorId);
+    }
+
+    public void insertDoctor (DoctorDTO doctorDTO) {
+        String firstName = doctorDTO.getFirstName();
+        String lastName = doctorDTO.getLastName();
+        int age = doctorDTO.getAge();
+        int experience = doctorDTO.getExperience();
+        Optional<Integer> room = doctorDTO.getRoom();
+        jdbcTemplate.update("INSERT INTO doctor (first_name, last_name, age, experience, room) VALUES\n" +
+                "(?, ?, ?, ?, ?);\n", firstName, lastName, age, experience, room.orElse(null));
+    }
 }
+
+//public void updateDoctor (Long doctorId, String firstName, String lastName, int age, int experience, Optional<Integer> room) {
+//    jdbcTemplate.update("UPDATE doctor\n" +
+//            "SET first_name=%s, last_name=%s, age=%s, experience=%s, room=%s\n" +
+//            "WHERE doctor_id=%s;\n", firstName, lastName, age, experience, room.orElse(0), doctorId);
+//}

@@ -37,6 +37,18 @@ public class DoctorService {
         return doctorDTO;
     }
 
+    public void deleteById(Long doctorId) {
+        doctorRepository.deleteDoctorById(doctorId);
+    }
+
+    public void update(DoctorDTO doctorDTO, Long doctorId) {
+        doctorRepository.updateDoctor(doctorDTO, doctorId);
+    }
+
+    public void insert(DoctorDTO doctorDTO) {
+        doctorRepository.insertDoctor(doctorDTO);
+    }
+
     public DoctorDTO convert(Doctor doctor)  {
         return doctorConvertor.convert(doctor);
     }
