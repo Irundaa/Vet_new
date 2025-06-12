@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +28,30 @@ public class DoctorService {
 
     public List<DoctorDTO> getAll() {
         List<Doctor> doctors = doctorRepository.getAll();
-        return null;
+        return doctors.stream().map(doctorConvertor::convert).collect(Collectors.toList());
     }
-//    private DoctorDTO convert(Doctor doctor)  {
-//
-//    }
+
+    public DoctorDTO findById(Long doctorId) {
+        Doctor doctor = doctorRepository.findDoctorById(doctorId);
+        DoctorDTO doctorDTO = doctorConvertor.convert(doctor);
+        return doctorDTO;
+    }
+
+    public void deleteById(Long doctorId) {
+        doctorRepository.deleteDoctorById(doctorId);
+    }
+
+    public void update(DoctorDTO doctorDTO, Long doctorId) {
+        doctorRepository.updateDoctor(doctorDTO, doctorId);
+    }
+
+    public void insert(DoctorDTO doctorDTO) {
+        doctorRepository.insertDoctor(doctorDTO);
+    }
+
+    public DoctorDTO convert(Doctor doctor)  {
+        return doctorConvertor.convert(doctor);
+    }
 }
 
 

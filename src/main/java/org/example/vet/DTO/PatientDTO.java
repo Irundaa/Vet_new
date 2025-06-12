@@ -1,10 +1,12 @@
 package org.example.vet.DTO;
 
 import lombok.Builder;
+import lombok.Getter;
 import org.example.vet.entety.Type;
 
 import java.util.Optional;
 
+@Getter
 public class PatientDTO {
     private Long patientId;
     private Long userId;
@@ -37,22 +39,22 @@ public class PatientDTO {
         private Integer age;
         private Integer weight;
 
-        public PatientDTOBuilder patientId(Long patientId, Long userId, String name, Type type) {
+        public PatientDTOBuilder patientId(Long patientId) {
             this.patientId = patientId;
             return this;
         }
 
-        public PatientDTOBuilder userId(Long patientId, Long userId, String name, Type type) {
+        public PatientDTOBuilder userId(Long userId) {
             this.userId = userId;
             return this;
         }
 
-        public PatientDTOBuilder name(Long patientId, Long userId, String name, Type type) {
+        public PatientDTOBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public PatientDTOBuilder type(Long patientId, Long userId, String name, Type type) {
+        public PatientDTOBuilder type(Type type) {
             this.type = type;
             return this;
         }

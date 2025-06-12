@@ -1,14 +1,18 @@
 package org.example.vet.DTO;
 
 import lombok.Builder;
+import lombok.Getter;
+
+import java.util.Optional;
 
 @Builder
+@Getter
 public class DoctorDTO {
-    private Long doctor_id;
-    private Long user_id;
-    private String first_name;
-    private String last_name;
+    private Long doctorId;
+    private Long userId;
+    private String firstName;
+    private String lastName;
     private int age;
     private int experience;
-    private int room;
+    private Optional<Integer> room;
 }
