@@ -15,7 +15,6 @@ public class DoctorConvertor {
         builder.age(doctor.getAge());
         builder.experience(doctor.getExperience());
         builder.room(doctor.getRoom());
-        DoctorDTO doctorDTO = builder.build();
-        return doctorDTO;
+        return builder.build();
     }
 }

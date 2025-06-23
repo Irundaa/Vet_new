@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+//автовайред зробити
 @Repository
 public class DoctorRepository {
     private final JdbcTemplate jdbcTemplate;
@@ -30,14 +31,9 @@ public class DoctorRepository {
     }
 
     public void updateDoctor (DoctorDTO doctorDTO, Long doctorId) {
-        String firstName = doctorDTO.getFirstName();
-        String lastName = doctorDTO.getLastName();
-        int age = doctorDTO.getAge();
-        int experience = doctorDTO.getExperience();
-        Optional<Integer> room = doctorDTO.getRoom();
         jdbcTemplate.update("UPDATE doctor\n" +
                 "SET first_name=?, last_name=?, age=?, experience=?, room=?\n" +
-                "WHERE doctor_id=?;\n", firstName, lastName, age, experience, room.orElse(null), doctorId);
+                "WHERE doctor_id=?;\n", doctorDTO.getFirstName(), doctorDTO.getLastName(), doctorDTO.getAge(), doctorDTO.getExperience(), doctorDTO.getRoom().orElse(null), doctorId);
     }
 
     public void insertDoctor (DoctorDTO doctorDTO) {
@@ -51,8 +47,3 @@ public class DoctorRepository {
     }
 }
 
-//public void updateDoctor (Long doctorId, String firstName, String lastName, int age, int experience, Optional<Integer> room) {
-//    jdbcTemplate.update("UPDATE doctor\n" +
-//            "SET first_name=%s, last_name=%s, age=%s, experience=%s, room=%s\n" +
-//            "WHERE doctor_id=%s;\n", firstName, lastName, age, experience, room.orElse(0), doctorId);
-//}

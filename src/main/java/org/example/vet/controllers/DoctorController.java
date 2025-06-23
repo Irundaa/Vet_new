@@ -38,12 +38,6 @@ public class DoctorController {
 
     @GetMapping(path = "/{doctorId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public DoctorDTO findDoctorById(@PathVariable Long doctorId) {
-//        DoctorDTO.DoctorDTOBuilder builder = DoctorDTO.builder();
-//        builder.age(10);
-//        builder.experience(10);
-//        builder.room(Optional.of(10));
-//        DoctorDTO doctor = builder.build();
-//        return Optional.of("Hello world!");
         return doctorService.findById(doctorId);
     }
 
