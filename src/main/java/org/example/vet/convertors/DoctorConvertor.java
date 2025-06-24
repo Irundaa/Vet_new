@@ -4,8 +4,6 @@ import org.example.vet.DTO.DoctorDTO;
 import org.example.vet.entety.Doctor;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 public class DoctorConvertor {
     public DoctorDTO convert(Doctor doctor) {
@@ -15,6 +13,16 @@ public class DoctorConvertor {
         builder.age(doctor.getAge());
         builder.experience(doctor.getExperience());
         builder.room(doctor.getRoom());
+        return builder.build();
+    }
+
+    public Doctor convert(DoctorDTO doctorDTO) {
+        Doctor.DoctorBuilder builder = new Doctor.DoctorBuilder();
+        builder.firstName(doctorDTO.getFirstName());
+        builder.lastName(doctorDTO.getLastName());
+        builder.age(doctorDTO.getAge());
+        builder.experience(doctorDTO.getExperience());
+        doctorDTO.getRoom().ifPresent(builder::room);
         return builder.build();
     }
 }

@@ -1,19 +1,19 @@
 package org.example.vet.repository;
 
-import org.example.vet.DTO.DoctorDTO;
 import org.example.vet.entety.Doctor;
+import org.example.vet.exceptions.DoctorWithIdDoesNotExistException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
-//автовайред зробити
 @Repository
 public class DoctorRepository {
     private final JdbcTemplate jdbcTemplate;
 
+    @Autowired
     public DoctorRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -23,27 +23,23 @@ public class DoctorRepository {
     }
 
     public Doctor findDoctorById (Long doctorId) {
-        return jdbcTemplate.queryForObject("SELECT first_name AS firstName, last_name AS lastName, age, experience, room FROM doctor  WHERE doctor_id=" + doctorId + ";", new BeanPropertyRowMapper<>(Doctor.class));
+        //throw new DoctorWithIdDoesNotExistException("blin", doctorId);
+        return jdbcTemplate.queryForObject(String.format("SELECT first_name AS firstName, last_name AS lastName, age, experience, room FROM doctor  WHERE doctor_id=%s;", doctorId), new BeanPropertyRowMapper<>(Doctor.class));
     }
 
     public void deleteDoctorById (Long doctorId) {
-        jdbcTemplate.update("DELETE FROM doctor WHERE doctor_id=" + doctorId + ";");
+        jdbcTemplate.update("DELETE FROM doctor WHERE doctor_id=?",  doctorId);
     }
 
-    public void updateDoctor (DoctorDTO doctorDTO, Long doctorId) {
+    public void updateDoctor (Doctor doctor, Long doctorId) {
         jdbcTemplate.update("UPDATE doctor\n" +
                 "SET first_name=?, last_name=?, age=?, experience=?, room=?\n" +
-                "WHERE doctor_id=?;\n", doctorDTO.getFirstName(), doctorDTO.getLastName(), doctorDTO.getAge(), doctorDTO.getExperience(), doctorDTO.getRoom().orElse(null), doctorId);
+                "WHERE doctor_id=?;\n", doctor.getFirstName(), doctor.getLastName(), doctor.getAge(), doctor.getExperience(), doctor.getRoom().orElse(null), doctorId);
     }
 
-    public void insertDoctor (DoctorDTO doctorDTO) {
-        String firstName = doctorDTO.getFirstName();
-        String lastName = doctorDTO.getLastName();
-        int age = doctorDTO.getAge();
-        int experience = doctorDTO.getExperience();
-        Optional<Integer> room = doctorDTO.getRoom();
+    public void insertDoctor (Doctor doctor) {
         jdbcTemplate.update("INSERT INTO doctor (first_name, last_name, age, experience, room) VALUES\n" +
-                "(?, ?, ?, ?, ?);\n", firstName, lastName, age, experience, room.orElse(null));
+                "(?, ?, ?, ?, ?);\n", doctor.getFirstName(), doctor.getLastName(), doctor.getAge(), doctor.getExperience(), doctor.getRoom().orElse(null));
     }
 }
 
