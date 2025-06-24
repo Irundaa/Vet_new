@@ -6,6 +6,7 @@ import java.util.Optional;
 
 @Getter
 @Setter
+@Builder
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
