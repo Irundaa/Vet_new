@@ -47,9 +47,9 @@ public class DoctorService {
     }
 
     public DoctorDTO convertDoctor(Doctor doctor)  {
-        return doctorConvertor.convertDoctorToDTO(doctor);
+        return doctorConvertor.convert(doctor);
     }
-    public Doctor convertDTO(DoctorDTO doctorDTO)  { return doctorConvertor.convertDTOtoDoctor(doctorDTO); }
+    public Doctor convertDTO(DoctorDTO doctorDTO)  { return doctorConvertor.convert(doctorDTO); }
 }
 
 

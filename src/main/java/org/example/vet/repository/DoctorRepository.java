@@ -1,6 +1,7 @@
 package org.example.vet.repository;
 
 import org.example.vet.entety.Doctor;
+import org.example.vet.exceptions.DoctorWithIdDoesNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,7 +23,8 @@ public class DoctorRepository {
     }
 
     public Doctor findDoctorById (Long doctorId) {
-        return jdbcTemplate.queryForObject("SELECT first_name AS firstName, last_name AS lastName, age, experience, room FROM doctor  WHERE doctor_id=" + doctorId + ";", new BeanPropertyRowMapper<>(Doctor.class));
+        //throw new DoctorWithIdDoesNotExistException("blin", doctorId);
+        return jdbcTemplate.queryForObject(String.format("SELECT first_name AS firstName, last_name AS lastName, age, experience, room FROM doctor  WHERE doctor_id=%s;", doctorId), new BeanPropertyRowMapper<>(Doctor.class));
     }
 
     public void deleteDoctorById (Long doctorId) {

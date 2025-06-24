@@ -1,10 +1,14 @@
 package org.example.vet.controllers;
 
+import org.apache.commons.lang3.StringUtils;
 import org.example.vet.DTO.DoctorDTO;
+import org.example.vet.response.ResponseStatus;
+import org.example.vet.response.VetResponse;
 import org.example.vet.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClient;
 
 import java.util.List;
 
@@ -13,10 +17,12 @@ import java.util.List;
 public class DoctorController {
 
     private final DoctorService doctorService;
+    private final RestClient.Builder builder;
 
     @Autowired
-    public  DoctorController(DoctorService doctorService) {
+    public  DoctorController(DoctorService doctorService, RestClient.Builder builder) {
         this.doctorService = doctorService;
+        this.builder = builder;
     }
 
     @PostMapping
@@ -32,13 +38,21 @@ public class DoctorController {
     }
 
     @DeleteMapping(path = "{doctorId}")
-    public void  deleteDoctor(@PathVariable("doctorId") Long doctorId) {
+    public void deleteDoctor(@PathVariable("doctorId") Long doctorId) {
         doctorService.deleteById(doctorId);
     }
 
     @GetMapping(path = "/{doctorId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public DoctorDTO findDoctorById(@PathVariable Long doctorId) {
-        return doctorService.findById(doctorId);
+    public VetResponse findDoctorById(@PathVariable Long doctorId) {
+        VetResponse.VetResponseBuilder vetResponseBuilder = VetResponse.builder();
+        vetResponseBuilder.status(ResponseStatus.SUCCESS);
+        try {
+            vetResponseBuilder.entity(doctorService.findById(doctorId));
+        } catch (Exception e) {
+            vetResponseBuilder.message(StringUtils.isEmpty(e.getMessage()) ? "Something went wrong" : e.getMessage());
+            vetResponseBuilder.status(ResponseStatus.FAILURE);
+        }
+        return vetResponseBuilder.build();
     }
 
     @GetMapping

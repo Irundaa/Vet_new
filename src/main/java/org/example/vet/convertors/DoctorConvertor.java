@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DoctorConvertor {
-    public DoctorDTO convertDoctorToDTO(Doctor doctor) {
+    public DoctorDTO convert(Doctor doctor) {
         DoctorDTO.DoctorDTOBuilder builder = DoctorDTO.builder();
         builder.firstName(doctor.getFirstName());
         builder.lastName(doctor.getLastName());
@@ -16,13 +16,13 @@ public class DoctorConvertor {
         return builder.build();
     }
 
-    public Doctor convertDTOtoDoctor(DoctorDTO doctorDTO) {
-        Doctor.DoctorBuilder builder = Doctor.builder();
+    public Doctor convert(DoctorDTO doctorDTO) {
+        Doctor.DoctorBuilder builder = new Doctor.DoctorBuilder();
         builder.firstName(doctorDTO.getFirstName());
         builder.lastName(doctorDTO.getLastName());
         builder.age(doctorDTO.getAge());
         builder.experience(doctorDTO.getExperience());
-        builder.room(doctorDTO.getRoom());
+        doctorDTO.getRoom().ifPresent(builder::room);
         return builder.build();
     }
 }
