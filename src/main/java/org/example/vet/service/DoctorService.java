@@ -26,6 +26,9 @@ public class DoctorService {
     }
 
     public DoctorDTO findById(Long doctorId) {
+        if (doctorRepository.findDoctorById(doctorId) == null) {
+            throw new DoctorWithIdDoesNotExistException(String.format("Doctor with id %s does not exist", doctorId));
+        }
         Doctor doctor = doctorRepository.findDoctorById(doctorId);
         DoctorDTO doctorDTO = convertDoctor(doctor);
         return doctorDTO;
@@ -33,7 +36,7 @@ public class DoctorService {
 
     public void deleteById(Long doctorId) {
         if (doctorRepository.findDoctorById(doctorId) == null) {
-            throw new DoctorWithIdDoesNotExistException("Doctor with id %s does not exist", doctorId);
+            throw new DoctorWithIdDoesNotExistException(String.format("Doctor with id %s does not exist", doctorId));
         }
         doctorRepository.deleteDoctorById(doctorId);
     }

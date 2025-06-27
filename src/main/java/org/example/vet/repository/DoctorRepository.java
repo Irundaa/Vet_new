@@ -23,8 +23,11 @@ public class DoctorRepository {
     }
 
     public Doctor findDoctorById (Long doctorId) {
-        //throw new DoctorWithIdDoesNotExistException("blin", doctorId);
-        return jdbcTemplate.queryForObject(String.format("SELECT first_name AS firstName, last_name AS lastName, age, experience, room FROM doctor  WHERE doctor_id=%s;", doctorId), new BeanPropertyRowMapper<>(Doctor.class));
+        try {
+            return jdbcTemplate.queryForObject(String.format("SELECT first_name AS firstName, last_name AS lastName, age, experience, room FROM doctor  WHERE doctor_id=%s;", doctorId), new BeanPropertyRowMapper<>(Doctor.class));
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public void deleteDoctorById (Long doctorId) {
