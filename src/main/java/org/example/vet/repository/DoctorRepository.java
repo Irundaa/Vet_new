@@ -1,7 +1,6 @@
 package org.example.vet.repository;
 
 import org.example.vet.entety.Doctor;
-import org.example.vet.exceptions.DoctorWithIdDoesNotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -1,15 +1,10 @@
 package org.example.vet.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.vet.DTO.DoctorDTO;
 import org.example.vet.DTO.PatientDTO;
-import org.example.vet.convertors.DoctorConvertor;
 import org.example.vet.convertors.PatientConvertor;
-import org.example.vet.entety.Doctor;
 import org.example.vet.entety.Patient;
-import org.example.vet.exceptions.DoctorWithIdDoesNotExistException;
-import org.example.vet.exceptions.PatientWithIdDoesNotExistException;
-import org.example.vet.repository.DoctorRepository;
+import org.example.vet.exceptions.PatientDoesNotExistException;
 import org.example.vet.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +19,7 @@ public class PatientService {
 
     public PatientDTO findById(Long patientId) {
         if (patientRepository.findPatientById(patientId) == null) {
-            throw new PatientWithIdDoesNotExistException(String.format("Patient with id %s does not exist", patientId));
+            throw new PatientDoesNotExistException(String.format("Patient with id %s does not exist", patientId));
         }
         Patient patient = patientRepository.findPatientById(patientId);
         return convertPatient(patient);

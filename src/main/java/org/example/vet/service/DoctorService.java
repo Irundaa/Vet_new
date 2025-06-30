@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.vet.DTO.DoctorDTO;
 import org.example.vet.convertors.DoctorConvertor;
 import org.example.vet.entety.Doctor;
-import org.example.vet.exceptions.DoctorWithIdDoesNotExistException;
+import org.example.vet.exceptions.DoctorDoesNotExistException;
 import org.example.vet.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class DoctorService {
 
     public DoctorDTO findById(Long doctorId) {
         if (doctorRepository.findDoctorById(doctorId) == null) {
-            throw new DoctorWithIdDoesNotExistException(String.format("Doctor with id %s does not exist", doctorId));
+            throw new DoctorDoesNotExistException(String.format("Doctor with id %s does not exist", doctorId));
         }
         Doctor doctor = doctorRepository.findDoctorById(doctorId);
         DoctorDTO doctorDTO = convertDoctor(doctor);
@@ -36,7 +36,7 @@ public class DoctorService {
 
     public void deleteById(Long doctorId) {
         if (doctorRepository.findDoctorById(doctorId) == null) {
-            throw new DoctorWithIdDoesNotExistException(String.format("Doctor with id %s does not exist", doctorId));
+            throw new DoctorDoesNotExistException(String.format("Doctor with id %s does not exist", doctorId));
         }
         doctorRepository.deleteDoctorById(doctorId);
     }
