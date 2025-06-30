@@ -41,7 +41,6 @@ public class DoctorController {
     public VetResponse deleteDoctor(@PathVariable("doctorId") Long doctorId) {
         VetResponse.VetResponseBuilder vetResponseBuilder = VetResponse.builder();
         try {
-            doctorService.findById(doctorId);
             doctorService.deleteById(doctorId);
             vetResponseBuilder.status(ResponseStatus.SUCCESS);
         } catch (Exception e) {

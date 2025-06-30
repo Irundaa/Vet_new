@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PatientConvertor {
     public PatientDTO convert(Patient patient) {
-        PatientDTO.PatientDTOBuilder builder = PatientDTO.builder();
+        PatientDTO.PatientDTOBuilder builder = new PatientDTO.PatientDTOBuilder();
         builder.name(patient.getName());
         builder.type(patient.getType());
         builder.age(patient.getAge());
