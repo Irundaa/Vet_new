@@ -1,6 +1,5 @@
 package org.example.vet.DTO;
 
-import lombok.Builder;
 import lombok.Getter;
 import org.example.vet.entety.Type;
 
@@ -20,8 +19,8 @@ public class PatientDTO {
         this.userId = builder.userId;
         this.name = builder.name;
         this.type = builder.type;
-        this.age = Optional.ofNullable(builder.age);
-        this.weight = Optional.ofNullable(builder.weight);
+        this.age = builder.age;
+        this.weight = builder.weight;
     }
 
     public Long getPatientId() { return patientId; }
@@ -36,8 +35,8 @@ public class PatientDTO {
         private Long userId;
         private String name;
         private Type type;
-        private Integer age;
-        private Integer weight;
+        private Optional<Integer> age;
+        private Optional<Integer> weight;
 
         public PatientDTOBuilder patientId(Long patientId) {
             this.patientId = patientId;
@@ -59,12 +58,12 @@ public class PatientDTO {
             return this;
         }
 
-        public PatientDTOBuilder age(Integer age) {
+        public PatientDTOBuilder age(Optional<Integer> age) {
             this.age = age;
             return this;
         }
 
-        public PatientDTOBuilder weight(Integer weight) {
+        public PatientDTOBuilder weight(Optional<Integer> weight) {
             this.weight = weight;
             return this;
         }
