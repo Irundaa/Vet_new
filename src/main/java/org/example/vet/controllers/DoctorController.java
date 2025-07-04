@@ -17,12 +17,10 @@ import java.util.List;
 public class DoctorController {
 
     private final DoctorService doctorService;
-    private final RestClient.Builder builder;
 
     @Autowired
-    public  DoctorController(DoctorService doctorService, RestClient.Builder builder) {
+    public  DoctorController(DoctorService doctorService) {
         this.doctorService = doctorService;
-        this.builder = builder;
     }
 
     @PostMapping
@@ -38,16 +36,24 @@ public class DoctorController {
     }
 
     @DeleteMapping(path = "{doctorId}")
-    public void deleteDoctor(@PathVariable("doctorId") Long doctorId) {
-        doctorService.deleteById(doctorId);
+    public VetResponse deleteDoctor(@PathVariable("doctorId") Long doctorId) {
+        VetResponse.VetResponseBuilder vetResponseBuilder = VetResponse.builder();
+        try {
+            doctorService.deleteById(doctorId);
+            vetResponseBuilder.status(ResponseStatus.SUCCESS);
+        } catch (Exception e) {
+            vetResponseBuilder.message(StringUtils.isEmpty(e.getMessage()) ? "Something went wrong" : e.getMessage());
+            vetResponseBuilder.status(ResponseStatus.FAILURE);
+        }
+        return vetResponseBuilder.build();
     }
 
     @GetMapping(path = "/{doctorId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public VetResponse findDoctorById(@PathVariable Long doctorId) {
         VetResponse.VetResponseBuilder vetResponseBuilder = VetResponse.builder();
-        vetResponseBuilder.status(ResponseStatus.SUCCESS);
         try {
             vetResponseBuilder.entity(doctorService.findById(doctorId));
+            vetResponseBuilder.status(ResponseStatus.SUCCESS);
         } catch (Exception e) {
             vetResponseBuilder.message(StringUtils.isEmpty(e.getMessage()) ? "Something went wrong" : e.getMessage());
             vetResponseBuilder.status(ResponseStatus.FAILURE);
