@@ -12,7 +12,7 @@ public class PatientConvertor {
     public PatientDTO convert(Patient patient) {
         PatientDTO.PatientDTOBuilder builder = new PatientDTO.PatientDTOBuilder();
         builder.name(patient.getName());
-        builder.type(patient.getType());
+        builder.type(Type.valueOf(patient.getType()));
         builder.age(patient.getAge());
         builder.weight(patient.getWeight());
         return builder.build();
@@ -21,7 +21,7 @@ public class PatientConvertor {
     public Patient convert(PatientDTO patientDTO) {
         Patient.PatientBuilder builder = Patient.builder();
         builder.name(patientDTO.getName());
-        builder.type(patientDTO.getType());
+        builder.type(String.valueOf(patientDTO.getType()));
         builder.age(patientDTO.getAge());
         builder.weight(patientDTO.getWeight());
         return builder.build();
