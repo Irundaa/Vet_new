@@ -17,12 +17,10 @@ import java.util.List;
 public class DoctorController {
 
     private final DoctorService doctorService;
-    private final RestClient.Builder builder;
 
     @Autowired
-    public  DoctorController(DoctorService doctorService, RestClient.Builder builder) {
+    public  DoctorController(DoctorService doctorService) {
         this.doctorService = doctorService;
-        this.builder = builder;
     }
 
     @PostMapping

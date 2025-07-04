@@ -26,10 +26,10 @@ public class DoctorService {
     }
 
     public DoctorDTO findById(Long doctorId) {
-        if (doctorRepository.findDoctorById(doctorId) == null) {
+        Doctor doctor = doctorRepository.findDoctorById(doctorId);
+        if (doctor == null) {
             throw new DoctorDoesNotExistException(String.format("Doctor with id %s does not exist", doctorId));
         }
-        Doctor doctor = doctorRepository.findDoctorById(doctorId);
         DoctorDTO doctorDTO = convertDoctor(doctor);
         return doctorDTO;
     }
