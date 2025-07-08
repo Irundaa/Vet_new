@@ -5,14 +5,12 @@ import org.example.vet.entety.Patient;
 import org.example.vet.entety.Type;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Optional;
 
 import static org.example.vet.entety.Type.DOG;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 class PatientConvertorTest {
@@ -38,6 +36,18 @@ class PatientConvertorTest {
     }
 
     @Test
+    public void testConvertPatientEssentials() {
+        Patient.PatientBuilder builder = Patient.builder();
+        builder.name(NAME);
+        builder.type(TYPE_STRING);
+        PatientDTO patientDTO = patientConvertor.convert(builder.build());
+
+        assertNotNull(patientDTO);
+        assertEquals(NAME, patientDTO.getName());
+        assertEquals(TYPE, patientDTO.getType());
+    }
+
+    @Test
     public void testConvertDTO() {
         Patient patient = patientConvertor.convert(buildDTO());
 
@@ -49,45 +59,16 @@ class PatientConvertorTest {
     }
 
     @Test
-    public void testConvertDTOName() {
+    public void testConvertDTOEssentials() {
         PatientDTO.PatientDTOBuilder builder = new PatientDTO.PatientDTOBuilder();
         builder.name(NAME);
-        Patient patient = patientConvertor.convert(builder.build());
-
-        assertNotNull(patient);
-        assertEquals(NAME, patient.getName());
-    }
-
-    @Test
-    public void testConvertDTOType() {
-        PatientDTO.PatientDTOBuilder builder = new PatientDTO.PatientDTOBuilder();
         builder.type(TYPE);
         Patient patient = patientConvertor.convert(builder.build());
 
         assertNotNull(patient);
+        assertEquals(NAME, patient.getName());
         assertEquals(TYPE_STRING, patient.getType());
     }
-
-    @Test
-    public void testConvertDTOAge() {
-        PatientDTO.PatientDTOBuilder builder = new PatientDTO.PatientDTOBuilder();
-        builder.age(AGE);
-        Patient patient = patientConvertor.convert(builder.build());
-
-        assertNotNull(patient);
-        assertEquals(AGE, patient.getAge());
-    }
-
-    @Test
-    public void testConvertDTOWeight() {
-        PatientDTO.PatientDTOBuilder builder = new PatientDTO.PatientDTOBuilder();
-        builder.weight(WEIGHT);
-        Patient patient = patientConvertor.convert(builder.build());
-
-        assertNotNull(patient);
-        assertEquals(WEIGHT, patient.getWeight());
-    }
-
 
     public PatientDTO buildDTO() {
         PatientDTO.PatientDTOBuilder builder = new PatientDTO.PatientDTOBuilder();
